@@ -1,0 +1,9 @@
+.dn {
+	display: none !important;
+}
+
+.layout-width {
+	max-width: 1300px;
+	min-width: 1100px;
+	margin: 0 auto;
+}

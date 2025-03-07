@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mappers.BoardMapper">
+ 	<resultMap id="Board" type="woo.edu.c.vo.Board">
+    <result column="BNO" property="bno"/>
+    <result column="TITLE" property="title"/>
+    <result column="CONTENT" property="content" />
+    <result column="WRITER" property="writer"/>
+    <result column="REGDATE" property="regDate"/>
+    <result column="UPDATEDATE" property="updateDate" />
+    </resultMap>
+    <select id="select" resultMap="Board">
+    	SELECT * FROM BOARD ORDER BY REGDATE DESC
+    </select>
+    <select id="select_one" resultMap="Board">
+    	SELECT * FROM BOARD
+    	<where>
+    		BNO=#{bno}
+    	</where>
+    </select>
+    <insert id="register">
+        INSERT INTO BOARD (BNO, WRITER, TITLE, CONTENT)
+        VALUES (SEQ_BOARD.NEXTVAL, #{writer}, #{title}, #{content})
+    </insert>
+    <update id="update">
+    	UPDATE BOARD 
+    	<set>
+    		WRITER=#{writer},
+    		TITLE=#{title},
+    		CONTENT=#{content}
+    	</set>
+    	<where>
+    		BNO=#{bno}
+    	</where>
+    </update>
+    <delete id="delete">
+    	DELETE FROM BOARD
+    	<where>
+    	BNO=#{bno}
+    	</where>
+    </delete>
+</mapper>
