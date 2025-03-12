@@ -8,7 +8,7 @@
         <a href="#" class="dropdown-toggle">게시판 ▾</a> 
         <ul class="dropdown-menu">
             <li><a href="<c:url value='/board/boardhome' />">게시글 목록</a></li>
-            <li><a href="<c:url value='/board/ajax/list' />">게시판 목록 ajax</a></li>
+            <li><a href="<c:url value='/board/ajax/list2' />">게시판 목록 ajax</a></li>
         </ul>
     </li>
 </ul>

@@ -1,8 +1,6 @@
 package woo.edu.c.controller;
 
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -122,10 +120,10 @@ public class BoardController {
 	}
 	
 	// ajax 비동기 처리
-	@GetMapping("/ajax/list")
+	@GetMapping("/ajax/list2")
 	public String ajaxList(){
 		
-		return "board/ajax/list";
+		return "board/ajax/list2";
 	}
 }
 
