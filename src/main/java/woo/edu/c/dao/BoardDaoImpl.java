@@ -5,26 +5,45 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import mappers.BoardMapper;
-import woo.edu.c.controller.HomeController;
-import woo.edu.c.vo.testVo;
+import woo.edu.c.vo.BoardVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	// mybatis
-	//@Inject
-	//private BoardMapper mapper;
+	@Inject
+	private SqlSession sql;
 	
-	//private static String namespace = "boardMapper";
+	private static String namespace = "mappers.BoardMapper";
 
-	//@Override
-	//public List<testVo> test() {
-	//	return sql.selectList(namespace + ".test");
-	//}
+	@Override
+	public List<BoardVo> select() {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".select");
+	}
+
+	@Override
+	public int register(BoardVo board) {
+		// TODO Auto-generated method stub
+		return sql.insert(namespace + ".register", board);
+	}
+
+	@Override
+	public BoardVo select_one(Long bno) {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".select_one", bno);
+	}
+
+	@Override
+	public int update(BoardVo board) {
+		// TODO Auto-generated method stub
+        return sql.update(namespace + ".update", board);
+	}
+
+	@Override
+	public int delete(Long bno) {
+		// TODO Auto-generated method stub
+        return sql.delete(namespace + ".delete", bno);
+	}
 	
 }

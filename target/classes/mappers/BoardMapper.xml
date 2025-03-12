@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="mappers.BoardMapper">
- 	<resultMap id="Board" type="woo.edu.c.vo.Board">
+ 	<resultMap id="Board" type="woo.edu.c.vo.BoardVo">
     <result column="BNO" property="bno"/>
     <result column="TITLE" property="title"/>
     <result column="CONTENT" property="content" />
@@ -12,19 +12,25 @@
     <result column="REGDATE" property="regDate"/>
     <result column="UPDATEDATE" property="updateDate" />
     </resultMap>
+    
     <select id="select" resultMap="Board">
-    	SELECT * FROM BOARD ORDER BY REGDATE DESC
+    	SELECT BNO, WRITER, TITLE, CONTENT, REGDATE
+    	FROM BOARD
+    	ORDER BY REGDATE DESC
     </select>
+    
     <select id="select_one" resultMap="Board">
-    	SELECT * FROM BOARD
+    	SELECT BNO, WRITER, TITLE, CONTENT FROM BOARD
     	<where>
     		BNO=#{bno}
     	</where>
     </select>
+    
     <insert id="register">
         INSERT INTO BOARD (BNO, WRITER, TITLE, CONTENT)
         VALUES (SEQ_BOARD.NEXTVAL, #{writer}, #{title}, #{content})
     </insert>
+    
     <update id="update">
     	UPDATE BOARD 
     	<set>
@@ -36,10 +42,12 @@
     		BNO=#{bno}
     	</where>
     </update>
+    
     <delete id="delete">
     	DELETE FROM BOARD
     	<where>
     	BNO=#{bno}
     	</where>
     </delete>
+    
 </mapper>

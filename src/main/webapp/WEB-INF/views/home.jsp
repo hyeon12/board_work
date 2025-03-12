@@ -1,33 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
+<%@ include file="/WEB-INF/views/common/common.jsp" %>
+<%@ include file="/WEB-INF/views/common/nav.jsp" %>
 
-<layout:main title="HOME" menuCode='home'>
-<div class="layout-width">
-<h1>HOME</h1>
-<img src="../resources/img/wooriict.png" alt="woriict"/>
-</div>
-</layout:main>
+<style>
+    .layout-width {
+		max-width: 1300px;
+		min-width: 1000px;
+		margin: 0 auto;
+    }
+</style>
 
-<%-- 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Home</title>
-</head>
-<body>
-<nav>
-<ul>
-<li>HOME</li>
-<li>게시판</li>
-</ul>
-</nav>
-<h1>
-	HOME 
-</h1>
-<P>  The time on the server is ${serverTime}. </P>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Home</title>
+	</head>
+	<body>
+		<nav>
+		<div class="layout-width">
+			<h1>HOME</h1>
+			<a href="http://www.wooriict.com">
+			<img src="../resources/img/wooriict.png" alt="woriict"/>
+			</a>
+		</div>
+		</nav>
+	</body>
 </html>
---%>

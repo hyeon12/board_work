@@ -1,6 +1,3 @@
 eclipse.preferences.version=1
 encoding//src/main/java/woo/edu/c/controller/BoardController.java=UTF-8
-encoding//src/main/resources/messages/commons.properties=UTF-8
-encoding//src/main/resources/messages/errors.properties=UTF-8
-encoding//src/main/resources/messages/validations.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/board/boardhome.jsp=UTF-8

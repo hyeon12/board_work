@@ -1,15 +1,21 @@
 package woo.edu.c.dao;
 
-//import java.util.List;
+import java.util.List;
 
-//import woo.edu.c.vo.Board; -- 옮기고 싶은 부분... BoardMapper를 여기로 .. ㅠㅠ
-import woo.edu.c.vo.testVo;//예시
+import org.apache.ibatis.annotations.Mapper;
 
+import woo.edu.c.vo.BoardVo;
+
+@Mapper
 public interface BoardDao {
 
-	//List<testVo> test(); //예시
+	List<BoardVo> select();
 	
-	//List<Board> select();
+	int register(BoardVo board);
 	
-	//int register(Board board);
+	BoardVo select_one(Long bno);
+	
+	int update(BoardVo board);
+	
+	int delete(Long bno);
 }

@@ -1,74 +1,86 @@
 package woo.edu.c.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mappers.BoardMapper;
-import woo.edu.c.controller.BoardForm;
-import woo.edu.c.vo.Board;
+import woo.edu.c.dao.BoardDao;
+import woo.edu.c.vo.BoardVo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
-	private BoardMapper mapper;
+	private BoardDao boardDao;
 	
+	// 게시글 목록
 	@Override
-	public List<Board> getList() {
+	public List<BoardVo> getList() {
 		// TODO Auto-generated method stub
 		
-		return mapper.select();
+		List<BoardVo> items = boardDao.select();
+		items.forEach(this::addInfo);
+		
+		return items;
 	}
 
+	// 게시글 상세보기
 	@Override
-	public Optional<Board> get(Long bno) {
-		Board board = mapper.select_one(bno);
+	public Optional<BoardVo> get(Long bno) {
+		BoardVo board = boardDao.select_one(bno);
+		
+		addInfo(board);
+		
 		return Optional.ofNullable(board);
 	}
-
-	@Override
-	public BoardForm getForm(Long bno) {
-		Board board = get(bno).orElseThrow(RuntimeException::new);
-		BoardForm form = new BoardForm();
-		
-		form.setMode("edit");
-		form.setBno(board.getBno());
-		form.setTitle(board.getTitle());
-		form.setWriter(board.getWriter());
-		form.setContent(board.getContent());
 	
-		return form;
-	}
-	
+	// 게시글 작성 및 수정
 	@Override
-	public boolean update(BoardForm form) {
+	public boolean update(Long bno, String title, String writer, String content, String mode) {
 		// TODO Auto-generated method stub
-		Board board = new Board();
-		board.setBno(form.getBno());
-		board.setTitle(form.getTitle());
-		board.setContent(form.getContent());
-		board.setWriter(form.getWriter());
+		BoardVo board = new BoardVo();
+		board.setBno(bno);
+		board.setTitle(title);
+		board.setContent(content);
+		board.setWriter(writer);
 		
-		String mode = form.getMode();
-		if (mode != null && mode.equals("edit")) { // 수정
+		if ("edit".equals(mode)) { // 수정
 			board.setUpdateDate(LocalDateTime.now());
-			
-			return mapper.update(board) > 0;
+			return boardDao.update(board) > 0;
 		} else { // 추가 
-			return mapper.register(board) > 0;
+			return boardDao.register(board) > 0;
 		}
 		
 	}
 
+	// 게시글 삭제
 	@Override
 	public boolean delete(Long bno) {
 		// TODO Auto-generated method stub
-		return mapper.delete(bno) > 0;
+		return boardDao.delete(bno) > 0;
 	}
-
+	
+	// 추가 정보 처리 
+	private void addInfo(BoardVo item) {
+		if (item == null) {
+			return;
+		}
+		
+		
+		if (item.getRegDate() != null) {
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+			item.setRegDateStr(formatter.format(item.getRegDate()));
+			
+        LocalDateTime regDate = item.getRegDate();
+        Date date = Date.from(regDate.atZone(ZoneId.systemDefault()).toInstant());
+        item.setFormattedRegDate(date); // 변환된 Date를 Board 객체에 설정
+		}
+	}
 }
