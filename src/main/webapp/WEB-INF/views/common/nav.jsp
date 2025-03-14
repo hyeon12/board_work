@@ -8,8 +8,11 @@
         <a href="#" class="dropdown-toggle">게시판 ▾</a> 
         <ul class="dropdown-menu">
             <li><a href="<c:url value='/board/boardhome' />">게시글 목록</a></li>
-            <li><a href="<c:url value='/board/ajax/list2' />">게시판 목록 ajax</a></li>
+            <li><a href="<c:url value='/board/ajax/boardhomeAjax' />">게시판 목록 ajax</a></li>
         </ul>
+    </li>
+    <li class="${menuCode == 'ex' ? 'active' : ''}" id="ex">
+    	<a href="<c:url value='/board/ex' />">JS</a>
     </li>
 </ul>
 
@@ -20,12 +23,10 @@ $(document).ready(function() {
     var loc = location.pathname.split("/"); // 현재 페이지 URL에서 경로 추출
     console.log("loc => " + loc);
     
-    if (loc.length > 2) {
-        if (loc[1] === "board") {
-            $("#board").addClass("active");
-        } else if (loc[1] === "") {
-            $("#home").addClass("active");
-        }
+    if (loc[1] === "board" && loc[2] !== "ex") {
+        $("#board").addClass("active"); // board 메뉴만 활성화
+    } else if (loc[1] === "board" && loc[2] === "ex") {
+        $("#ex").addClass("active"); // multiplication 메뉴만 활성화
     } else if (loc[1] === "") {
         $("#home").addClass("active");
     }

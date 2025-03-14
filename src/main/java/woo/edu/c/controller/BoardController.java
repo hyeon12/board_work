@@ -119,11 +119,20 @@ public class BoardController {
 		return "redirect:/board/boardhome";
 	}
 	
-	// ajax 비동기 처리
-	@GetMapping("/ajax/list2")
+	// ajax
+	@GetMapping("/ajax/boardhomeAjax")
 	public String ajaxList(){
 		
-		return "board/ajax/list2";
+		return "board/ajax/boardhomeAjax";
+	}
+	
+	// javaScript_Ex
+	@GetMapping("/ex")
+	public String multiplication(Model model){
+		
+		model.addAttribute("menuCode", "ex");
+		
+		return "js/ex";
 	}
 }
 

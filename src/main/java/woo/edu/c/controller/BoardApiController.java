@@ -32,12 +32,9 @@ public class BoardApiController {
         
         List<BoardVo> items = boardService.getList();
         
-        items.forEach(System.out::println);
         return items; // 변환된 리스트를 반환
     }
-    	
-    	//return boardService.getList(); // Board 데이터를 JSON 형식으로 반환
-    
+    	    
 	// 게시글 상세 보기
 	@GetMapping("/view/{bno}")
 	public BoardVo getOne(@PathVariable("bno") Long bno) {
@@ -81,12 +78,6 @@ public class BoardApiController {
     	checkRequired(data.getTitle(), "제목을 입력하세요.");
     	checkRequired(data.getContent(), "내용을 입력하세요.");
     	checkRequired(data.getWriter(), "작성자를 입력하세요.");
-    	
-    	/* bno 유무에 따라 결정되는 mode -> 검증 불필요! => 접근 시, checkRequired 매개변수 Object로 형변환 필요
-    	if (mode != null && mode.equals("edit")) {
-    		checkRequired(data.getBno(), "잘못된 접근입니다.");
-    	}*/
-    	
     }
     
     private void checkRequired(String str, String message) {
